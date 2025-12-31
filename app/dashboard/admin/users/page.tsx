@@ -76,7 +76,6 @@ export default async function AdminUsersPage() {
                     <RoleUpdateForm
                       userId={user.id}
                       currentRole={user.role}
-                      userName={user.name}
                     />
                   </td>
                   <td className="px-6 py-4 text-gray-600">

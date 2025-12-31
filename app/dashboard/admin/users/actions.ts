@@ -97,7 +97,18 @@ export async function updateUserRole(
     data: { role: data.role as "ADMIN" | "READER" },
   });
 
+  // Get user name for the success message
+  const updatedUser = await prisma.user.findUnique({
+    where: { id: data.userId },
+    select: { name: true },
+  });
+
   revalidatePath("/dashboard/admin/users");
+  return { 
+    success: true, 
+    userName: updatedUser?.name, 
+    newRole: data.role 
+  };
   return { success: true };
 }
 
@@ -130,9 +141,25 @@ export async function assignMeter(
     data: { assignedUserId: data.userId },
   });
 
+  // Get user and meter details for success message
+  const [user, meter] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: data.userId },
+      select: { name: true },
+    }),
+    prisma.meter.findUnique({
+      where: { id: data.meterId },
+      select: { meterCode: true },
+    }),
+  ]);
+
   revalidatePath("/dashboard/admin/meters");
   revalidatePath("/dashboard/admin/users");
-  return { success: true };
+  return { 
+    success: true, 
+    userName: user?.name, 
+    meterCode: meter?.meterCode 
+  };
 }
 
 export async function unassignMeter(

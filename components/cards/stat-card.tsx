@@ -6,11 +6,18 @@ interface StatCardProps {
     text: string;
     color: "emerald" | "gray";
   };
+  isActive?: boolean;
 }
 
-export function StatCard({ label, value, valueClassName, badge }: StatCardProps) {
+export function StatCard({ label, value, valueClassName, badge, isActive = false }: StatCardProps) {
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div
+      className={`rounded-lg border p-4 shadow-sm transition ${
+        isActive
+          ? "border-emerald-600 bg-emerald-50 ring-2 ring-emerald-600"
+          : "border-gray-200 bg-white"
+      }`}
+    >
       <p className="text-xs font-medium text-gray-600">{label}</p>
       <p className={`mt-2 text-2xl font-semibold ${valueClassName || "text-gray-900"}`}>
         {badge ? (
