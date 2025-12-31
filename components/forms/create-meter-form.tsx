@@ -22,14 +22,6 @@ export function CreateMeterForm() {
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-900">Create New Meter</h3>
-        <button
-          onClick={() => {
-            setShowForm(false);
-          }}
-          className="text-sm text-gray-600 hover:text-gray-900"
-        >
-          Cancel
-        </button>
       </div>
 
       <form action={action} className="space-y-4">
@@ -61,6 +53,22 @@ export function CreateMeterForm() {
             className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
             placeholder="e.g., Building A - Floor 1"
           />
+        </div>
+
+        <div>
+          <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+            Status
+          </label>
+          <select
+            id="status"
+            name="status"
+            defaultValue="ENABLED"
+            className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+          >
+            <option value="ENABLED">Enabled</option>
+            <option value="DISABLED">Disabled</option>
+            <option value="NOT_WORKING">Not Working</option>
+          </select>
         </div>
 
         {state?.error && (

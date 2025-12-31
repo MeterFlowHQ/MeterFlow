@@ -22,14 +22,6 @@ export function CreateUserForm() {
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-900">Create New User</h3>
-        <button
-          onClick={() => {
-            setShowForm(false);
-          }}
-          className="text-sm text-gray-600 hover:text-gray-900"
-        >
-          Cancel
-        </button>
       </div>
 
       <form action={action} className="space-y-4">

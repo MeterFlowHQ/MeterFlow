@@ -8,7 +8,10 @@ export default async function ReaderMetersPage() {
   if (!session?.user?.id) return null;
 
   const assignedMeters = await prisma.meter.findMany({
-    where: { assignedUserId: session.user.id },
+    where: { 
+      assignedUserId: session.user.id,
+      status: "ENABLED",
+    },
     include: {
       readings: {
         orderBy: { recordedAt: "desc" },

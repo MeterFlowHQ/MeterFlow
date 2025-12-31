@@ -8,6 +8,9 @@ export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
     include: {
       assignedMeters: {
+        where: {
+          status: "ENABLED",
+        },
         select: {
           id: true,
           meterCode: true,

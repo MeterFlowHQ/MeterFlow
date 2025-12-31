@@ -26,6 +26,9 @@ export default async function AdminMetersPage() {
     orderBy: { name: "asc" },
   });
 
+  // Filter only enabled meters for quick assign (readers shouldn't see disabled/not working meters)
+  const enabledMeters = meters.filter(m => m.status === "ENABLED");
+
   const totalMeters = meters.length;
   const assignedMeters = meters.filter((m) => m.assignedUserId).length;
   const unassignedMeters = totalMeters - assignedMeters;
@@ -65,8 +68,20 @@ export default async function AdminMetersPage() {
             <tbody className="divide-y divide-gray-200">
               {meters.map((meter) => (
                 <tr key={meter.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-900">
-                    {meter.meterCode}
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-gray-900">{meter.meterCode}</span>
+                      {meter.status === "DISABLED" && (
+                        <span className="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                          Disabled
+                        </span>
+                      )}
+                      {meter.status === "NOT_WORKING" && (
+                        <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
+                          Not Working
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4 text-gray-600">{meter.location}</td>
                   <td className="px-6 py-4">
@@ -85,8 +100,10 @@ export default async function AdminMetersPage() {
                           meterCode={meter.meterCode}
                         />
                       </div>
-                    ) : (
+                    ) : meter.status === "ENABLED" ? (
                       <QuickAssignForm meterId={meter.id} readers={readers} />
+                    ) : (
+                      <span className="text-sm text-gray-400">Not available</span>
                     )}
                   </td>
                   <td className="px-6 py-4 text-gray-900">{meter._count.readings}</td>

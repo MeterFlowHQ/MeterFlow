@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { startOfDay, endOfDay, subDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
+import { auth } from "@/auth";
 
 export type DateRange = "today" | "week" | "month" | "custom";
 
@@ -114,6 +115,8 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
 }
 
 export async function getMeterAnalytics(meterId: string) {
+  const session = await auth();
+  
   const meter = await prisma.meter.findUnique({
     where: { id: meterId },
     include: {
@@ -124,6 +127,16 @@ export async function getMeterAnalytics(meterId: string) {
   });
 
   if (!meter) return null;
+
+  // If user is not admin and meter is not enabled, deny access
+  if (session?.user?.role !== "ADMIN" && meter.status !== "ENABLED") {
+    return null;
+  }
+
+  // If user is a reader, they can only access their assigned meters
+  if (session?.user?.role === "READER" && meter.assignedUserId !== session.user.id) {
+    return null;
+  }
 
   const readings = await prisma.meterReading.findMany({
     where: { meterId },

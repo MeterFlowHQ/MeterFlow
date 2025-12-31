@@ -11,6 +11,12 @@ enum Role {
   READER
 }
 
+enum MeterStatus {
+  ENABLED
+  DISABLED
+  NOT_WORKING
+}
+
 model User {
   id              String         @id @default(uuid())
   name            String
@@ -33,6 +39,7 @@ model Meter {
   id             String          @id @default(uuid())
   meterCode      String          @unique
   location       String
+  status         MeterStatus     @default(ENABLED)
   assignedUserId String?
   createdAt      DateTime        @default(now())
 

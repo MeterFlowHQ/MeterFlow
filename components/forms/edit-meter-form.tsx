@@ -3,11 +3,14 @@
 import { useActionState, useState } from "react";
 import { updateMeter } from "@/app/dashboard/admin/meters/actions";
 
+type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
+
 interface EditMeterFormProps {
   meter: {
     id: string;
     meterCode: string;
     location: string;
+    status: MeterStatus;
   };
   onClose?: () => void;
 }
@@ -67,6 +70,23 @@ export function EditMeterForm({ meter, onClose }: EditMeterFormProps) {
                 defaultValue={meter.location}
                 className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
               />
+            </div>
+
+            <div>
+              <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                Status
+              </label>
+              <select
+                id="status"
+                name="status"
+                required
+                defaultValue={meter.status}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+              >
+                <option value="ENABLED">Enabled</option>
+                <option value="DISABLED">Disabled</option>
+                <option value="NOT_WORKING">Not Working</option>
+              </select>
             </div>
 
             {state?.error && (
@@ -157,6 +177,23 @@ export function EditMeterForm({ meter, onClose }: EditMeterFormProps) {
               defaultValue={meter.location}
               className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
             />
+          </div>
+
+          <div>
+            <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              required
+              defaultValue={meter.status}
+              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+            >
+              <option value="ENABLED">Enabled</option>
+              <option value="DISABLED">Disabled</option>
+              <option value="NOT_WORKING">Not Working</option>
+            </select>
           </div>
 
           {state?.error && (

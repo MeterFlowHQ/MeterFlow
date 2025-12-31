@@ -5,9 +5,12 @@ import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
+type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
+
 const meterSchema = z.object({
   meterCode: z.string().min(1, "Meter code is required").max(50),
   location: z.string().min(1, "Location is required").max(200),
+  status: z.enum(["ENABLED", "DISABLED", "NOT_WORKING"]).optional(),
 });
 
 export async function createMeter(
@@ -22,6 +25,7 @@ export async function createMeter(
   const data = {
     meterCode: formData.get("meterCode") as string,
     location: formData.get("location") as string,
+    status: (formData.get("status") as MeterStatus) || "ENABLED" as MeterStatus,
   };
 
   const validation = meterSchema.safeParse(data);
@@ -42,6 +46,7 @@ export async function createMeter(
     data: {
       meterCode: data.meterCode,
       location: data.location,
+      status: data.status,
     },
   });
 
@@ -62,6 +67,7 @@ export async function updateMeter(
   const data = {
     meterCode: formData.get("meterCode") as string,
     location: formData.get("location") as string,
+    status: formData.get("status") as MeterStatus,
   };
 
   const validation = meterSchema.safeParse(data);
@@ -86,6 +92,7 @@ export async function updateMeter(
     data: {
       meterCode: data.meterCode,
       location: data.location,
+      status: data.status,
     },
   });
 

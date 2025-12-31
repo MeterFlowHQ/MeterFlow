@@ -5,11 +5,14 @@ import { EditMeterForm } from "@/components/forms/edit-meter-form";
 import { deleteMeter } from "@/app/dashboard/admin/meters/actions";
 import { useActionState } from "react";
 
+type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
+
 interface MeterActionsDropdownProps {
   meter: {
     id: string;
     meterCode: string;
     location: string;
+    status: MeterStatus;
     assignedUserId: string | null;
     _count: {
       readings: number;
@@ -21,7 +24,7 @@ export function MeterActionsDropdown({ meter }: MeterActionsDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [deleteState, deleteAction, isDeleting] = useActionState(deleteMeter, undefined);
+  const [, deleteAction, isDeleting] = useActionState(deleteMeter, undefined);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -88,12 +91,6 @@ export function MeterActionsDropdown({ meter }: MeterActionsDropdownProps) {
                 title={!canDelete ? "Cannot delete meter with readings" : ""}
               >
                 {isDeleting ? "Deleting..." : "Delete"}
-              </button>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
-              >
-                Disable
               </button>
             </div>
           </div>

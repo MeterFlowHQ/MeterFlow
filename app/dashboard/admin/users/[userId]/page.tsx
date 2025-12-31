@@ -37,9 +37,12 @@ export default async function UserManagementPage({ params }: PageProps) {
     notFound();
   }
 
-  // Get unassigned meters for the assignment form
+  // Get unassigned meters for the assignment form (only enabled meters)
   const unassignedMeters = await prisma.meter.findMany({
-    where: { assignedUserId: null },
+    where: { 
+      assignedUserId: null,
+      status: "ENABLED",
+    },
     orderBy: { meterCode: "asc" },
   });
 

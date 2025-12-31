@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
 interface ExportFilters {
   startDate?: Date;
@@ -86,6 +87,8 @@ export async function generateReadingsExport(filters: ExportFilters = {}) {
 }
 
 export async function generateMeterExport(meterId: string) {
+  const session = await auth();
+  
   const meter = await prisma.meter.findUnique({
     where: { id: meterId },
     include: {
@@ -104,6 +107,16 @@ export async function generateMeterExport(meterId: string) {
   });
 
   if (!meter) throw new Error("Meter not found");
+
+  // If user is not admin and meter is not enabled, deny access
+  if (session?.user?.role !== "ADMIN" && meter.status !== "ENABLED") {
+    throw new Error("Access denied");
+  }
+
+  // If user is a reader, they can only export their assigned meters
+  if (session?.user?.role === "READER" && meter.assignedUserId !== session.user.id) {
+    throw new Error("Access denied");
+  }
 
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet(meter.meterCode);
