@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import { updateMeter } from "@/app/dashboard/admin/meters/actions";
 
 type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
@@ -18,6 +18,20 @@ interface EditMeterFormProps {
 export function EditMeterForm({ meter, onClose }: EditMeterFormProps) {
   const [state, action, isPending] = useActionState(updateMeter, undefined);
   const [isEditing, setIsEditing] = useState(false);
+
+  // Close modal on successful submission
+  useEffect(() => {
+    if (state?.success) {
+      const timer = setTimeout(() => {
+        if (onClose) {
+          onClose();
+        } else {
+          setIsEditing(false);
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [state?.success, onClose]);
 
   const handleClose = () => {
     setIsEditing(false);

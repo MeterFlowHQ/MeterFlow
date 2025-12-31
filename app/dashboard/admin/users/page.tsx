@@ -39,6 +39,8 @@ export default async function AdminUsersPage() {
             Create users, assign roles, and manage meter assignments
           </p>
         </div>
+        {/* Create User Form */}
+        <CreateUserForm />
       </div>
 
       {/* Stats */}
@@ -48,8 +50,7 @@ export default async function AdminUsersPage() {
         <StatCard label="Readers" value={readerCount} valueClassName="text-gray-600" />
       </div>
 
-      {/* Create User Form */}
-      <CreateUserForm />
+     
 
       {/* Users List */}
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
