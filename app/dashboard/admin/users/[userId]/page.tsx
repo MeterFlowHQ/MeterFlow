@@ -1,16 +1,18 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { AssignMeterForm } from "./assign-meter-form";
-import { UnassignMeterButton } from "./unassign-meter-button";
+import { AssignMeterForm } from "@/components/forms/assign-meter-form";
+import { UnassignMeterButton } from "@/components/buttons/unassign-meter-button";
+import { StatCard } from "@/components/cards/stat-card";
 
 interface PageProps {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }
 
 export default async function UserManagementPage({ params }: PageProps) {
+  const { userId } = await params;
   const user = await prisma.user.findUnique({
-    where: { id: params.userId },
+    where: { id: userId },
     include: {
       assignedMeters: {
         include: {
@@ -56,30 +58,23 @@ export default async function UserManagementPage({ params }: PageProps) {
 
       {/* User Info */}
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Role</p>
-          <p className="mt-2 text-lg font-semibold text-gray-900">
-            <span
-              className={`inline-block rounded-full px-3 py-1 text-sm ${
-                user.role === "ADMIN"
-                  ? "bg-emerald-100 text-emerald-700"
-                  : "bg-gray-100 text-gray-700"
-              }`}
-            >
-              {user.role}
-            </span>
-          </p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Assigned Meters</p>
-          <p className="mt-2 text-2xl font-semibold text-emerald-600">
-            {user.assignedMeters.length}
-          </p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Total Readings</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{user.readings.length}</p>
-        </div>
+        <StatCard 
+          label="Role" 
+          value={user.role} 
+          badge={{
+            text: user.role,
+            color: user.role === "ADMIN" ? "emerald" : "gray"
+          }}
+        />
+        <StatCard 
+          label="Assigned Meters" 
+          value={user.assignedMeters.length}
+          valueClassName="text-emerald-600"
+        />
+        <StatCard 
+          label="Total Readings" 
+          value={user.readings.length}
+        />
       </div>
 
       {/* Assign Meter Form */}

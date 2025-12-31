@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { ReadingForm } from "./reading-form";
+import { ReadingForm } from "@/components/forms/reading-form";
 
 export default async function ReaderMetersPage() {
   const session = await auth();

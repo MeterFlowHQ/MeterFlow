@@ -15,6 +15,7 @@ export function ImageUploadForm({ currentImage }: ImageUploadFormProps) {
       {currentImage && (
         <div className="mb-4">
           <p className="text-sm font-medium text-gray-600 mb-2">Current Image</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={currentImage} alt="Current profile" className="h-24 w-24 rounded-full object-cover" />
         </div>
       )}

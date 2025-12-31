@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { updateUserRole } from "./actions";
+import { updateUserRole } from "@/app/dashboard/admin/users/actions";
 
 interface RoleUpdateFormProps {
   userId: string;

@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { CreateUserForm } from "./create-user-form";
-import { RoleUpdateForm } from "./role-update-form";
+import { CreateUserForm } from "@/components/forms/create-user-form";
+import { RoleUpdateForm } from "@/components/forms/role-update-form";
+import { StatCard } from "@/components/cards/stat-card";
 
 export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
@@ -39,18 +40,9 @@ export default async function AdminUsersPage() {
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Total Users</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{totalUsers}</p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Admins</p>
-          <p className="mt-2 text-2xl font-semibold text-emerald-600">{adminCount}</p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Readers</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-600">{readerCount}</p>
-        </div>
+        <StatCard label="Total Users" value={totalUsers} />
+        <StatCard label="Admins" value={adminCount} valueClassName="text-emerald-600" />
+        <StatCard label="Readers" value={readerCount} valueClassName="text-gray-600" />
       </div>
 
       {/* Create User Form */}

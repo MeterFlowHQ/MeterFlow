@@ -3,11 +3,12 @@ import { getMeterAnalytics } from "@/lib/analytics";
 import { ReadingLineChart, ConsumptionBarChart } from "@/components/charts";
 
 interface MeterDetailPageProps {
-  params: { meterId: string };
+  params: Promise<{ meterId: string }>;
 }
 
 export default async function MeterDetailPage({ params }: MeterDetailPageProps) {
-  const analytics = await getMeterAnalytics(params.meterId);
+  const { meterId } = await params;
+  const analytics = await getMeterAnalytics(meterId);
 
   if (!analytics) {
     notFound();
@@ -29,7 +30,7 @@ export default async function MeterDetailPage({ params }: MeterDetailPageProps) 
           )}
         </div>
         <a
-          href={`/api/export?meterId=${params.meterId}`}
+          href={`/api/export?meterId=${meterId}`}
           className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
         >
           Export Meter Data

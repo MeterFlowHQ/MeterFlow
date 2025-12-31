@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitReading } from "./actions";
+import { submitReading } from "@/app/dashboard/reader/meters/actions";
 
 interface ReadingFormProps {
   meterId: string;
@@ -12,7 +12,11 @@ interface ReadingFormProps {
 export function ReadingForm({ meterId, meterCode, lastReading }: ReadingFormProps) {
   const [state, action, isPending] = useActionState(submitReading, undefined);
 
-  const defaultDateTime = new Date().toISOString().slice(0, 16);
+  // Format current date/time for datetime-local input (YYYY-MM-DDTHH:MM)
+  const now = new Date();
+  const defaultDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 16);
 
   return (
     <form action={action} className="space-y-4">

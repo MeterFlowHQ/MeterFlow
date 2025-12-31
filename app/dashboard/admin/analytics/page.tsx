@@ -1,20 +1,21 @@
 import { Suspense } from "react";
 import { getReadingsAnalytics } from "@/lib/analytics";
 import { ReadingLineChart } from "@/components/charts";
-import { AnalyticsFilters } from "./filters";
+import { AnalyticsFilters } from "@/components/forms/analytics-filters";
 
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     dateRange?: string;
     startDate?: string;
     endDate?: string;
-  };
+  }>;
 }
 
 export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
-  const dateRange = (searchParams.dateRange as "today" | "week" | "month" | "custom") || "month";
-  const startDate = searchParams.startDate ? new Date(searchParams.startDate) : undefined;
-  const endDate = searchParams.endDate ? new Date(searchParams.endDate) : undefined;
+  const params = await searchParams;
+  const dateRange = (params.dateRange as "today" | "week" | "month" | "custom") || "month";
+  const startDate = params.startDate ? new Date(params.startDate) : undefined;
+  const endDate = params.endDate ? new Date(params.endDate) : undefined;
 
   const analytics = await getReadingsAnalytics({ 
     dateRange, 

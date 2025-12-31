@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { QuickAssignForm } from "./quick-assign-form";
+import { QuickAssignForm } from "@/components/forms/quick-assign-form";
+import { StatCard } from "@/components/cards/stat-card";
 import { UnassignMeterButton } from "../users/[userId]/unassign-meter-button";
 
 export default async function AdminMetersPage() {
@@ -38,18 +39,9 @@ export default async function AdminMetersPage() {
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Total Meters</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-900">{totalMeters}</p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Assigned</p>
-          <p className="mt-2 text-2xl font-semibold text-emerald-600">{assignedMeters}</p>
-        </div>
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-gray-600">Unassigned</p>
-          <p className="mt-2 text-2xl font-semibold text-gray-600">{unassignedMeters}</p>
-        </div>
+        <StatCard label="Total Meters" value={totalMeters} />
+        <StatCard label="Assigned" value={assignedMeters} valueClassName="text-emerald-600" />
+        <StatCard label="Unassigned" value={unassignedMeters} valueClassName="text-gray-600" />
       </div>
 
       {/* Meters List */}

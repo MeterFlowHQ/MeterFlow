@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { assignMeter } from "../users/actions";
+import { assignMeter } from "@/app/dashboard/admin/users/actions";
 
 interface QuickAssignFormProps {
   meterId: string;

@@ -10,7 +10,12 @@ const readingSchema = z.object({
   readingValue: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
     message: "Reading value must be a positive number",
   }),
-  recordedAt: z.string().datetime(),
+  recordedAt: z.string().refine((val) => {
+    const date = new Date(val);
+    return !isNaN(date.getTime());
+  }, {
+    message: "Invalid date/time format",
+  }),
 });
 
 export async function submitReading(

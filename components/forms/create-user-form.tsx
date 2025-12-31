@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { createUser } from "./actions";
+import { createUser } from "@/app/dashboard/admin/users/actions";
 
 export function CreateUserForm() {
   const [state, action, isPending] = useActionState(createUser, undefined);
