@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { signOut } from "@/auth";
 
 interface DashboardNavbarProps {
@@ -14,9 +15,18 @@ export async function DashboardNavbar({ user }: DashboardNavbarProps) {
       <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link href="/dashboard" className="flex flex-col">
-              <span className="text-lg font-bold text-emerald-600">Meterflow</span>
-              <span className="text-xs text-gray-600">{user.email}</span>
+            <Link href="/dashboard" className="flex items-center gap-2">
+              <Image 
+                src="/Meterflow-icon.png" 
+                alt="Meterflow Logo" 
+                width={32} 
+                height={32}
+                className="h-8 w-8"
+              />
+              <div className="flex flex-col">
+                <span className="text-lg font-bold text-emerald-600">Meterflow</span>
+                <span className="text-xs text-gray-600">{user.email}</span>
+              </div>
             </Link>
             <nav className="hidden md:flex items-center gap-1">
               {user.role === "ADMIN" && (

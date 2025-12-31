@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
@@ -18,7 +19,14 @@ export default async function Home() {
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-16">
         <div className="space-y-6">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-emerald-600/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+          <span className="inline-flex w-fit items-center gap-3 rounded-full bg-emerald-600/20 px-4 py-2 text-base font-semibold uppercase tracking-wide text-emerald-300">
+            <Image 
+              src="/Meterflow-icon.png" 
+              alt="Meterflow Logo" 
+              width={28} 
+              height={28}
+              className="h-7 w-7"
+            />
             Meterflow
           </span>
           <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">

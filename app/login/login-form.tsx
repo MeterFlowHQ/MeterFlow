@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
 type FormState = { error: string; email?: string } | undefined;
 type LoginAction = (prevState: FormState, formData: FormData) => Promise<FormState>;
@@ -20,7 +21,7 @@ function SubmitButton() {
 }
 
 export default function LoginForm({ login }: { login: LoginAction }) {
-  const [state, formAction] = useFormState(login, undefined);
+  const [state, formAction] = useActionState(login, undefined);
 
   return (
     <>
