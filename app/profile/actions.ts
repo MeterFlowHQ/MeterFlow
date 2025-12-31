@@ -87,7 +87,10 @@ export async function updateContact(formData: FormData) {
   return { success: true };
 }
 
-export async function uploadProfileImage(formData: FormData) {
+export async function uploadProfileImage(
+  prevState: { error?: string; success?: boolean; imagePath?: string } | undefined,
+  formData: FormData
+) {
   const session = await auth();
   if (!session?.user?.id) {
     return { error: "Unauthorized" };

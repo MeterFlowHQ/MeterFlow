@@ -7,7 +7,7 @@ interface ImageUploadFormProps {
   currentImage: string | null;
 }
 
-export function ImageUploadForm({ currentImage }: ImageUploadFormProps) {
+export function ImageUploadForm({ currentImage: _currentImage }: ImageUploadFormProps) {
   const [state, action, isPending] = useActionState(uploadProfileImage, undefined);
 
   return (
