@@ -7,11 +7,17 @@ interface ImageUploadFormProps {
   currentImage: string | null;
 }
 
-export function ImageUploadForm({ currentImage: _currentImage }: ImageUploadFormProps) {
+export function ImageUploadForm({ currentImage }: ImageUploadFormProps) {
   const [state, action, isPending] = useActionState(uploadProfileImage, undefined);
 
   return (
     <form action={action} className="space-y-4">
+      {currentImage && (
+        <div className="mb-4">
+          <p className="text-sm font-medium text-gray-600 mb-2">Current Image</p>
+          <img src={currentImage} alt="Current profile" className="h-24 w-24 rounded-full object-cover" />
+        </div>
+      )}
       <div>
         <label htmlFor="image" className="block text-sm font-medium text-gray-600">
           Upload New Image

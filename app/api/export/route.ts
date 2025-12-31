@@ -15,7 +15,8 @@ export async function GET(req: NextRequest) {
   const userId = searchParams.get("userId");
 
   try {
-    let buffer: Buffer;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let buffer: any;
     let filename: string;
 
     if (meterId) {
@@ -30,7 +31,7 @@ export async function GET(req: NextRequest) {
       filename = `readings-export-${new Date().toISOString().split("T")[0]}.xlsx`;
     }
 
-    return new NextResponse(buffer, {
+    return new Response(buffer, {
       headers: {
         "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "Content-Disposition": `attachment; filename="${filename}"`,

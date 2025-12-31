@@ -54,7 +54,7 @@ export async function generateReadingsExport(filters: ExportFilters = {}) {
   worksheet.getRow(1).fill = {
     type: "pattern",
     pattern: "solid",
-    fgColor: { argb: "FF1E293B" },
+    fgColor: { argb: "FF059669" }, // emerald-600
   };
   worksheet.getRow(1).font = { bold: true, color: { argb: "FFFFFFFF" } };
 
@@ -133,7 +133,7 @@ export async function generateMeterExport(meterId: string) {
   worksheet.getRow(7).fill = {
     type: "pattern",
     pattern: "solid",
-    fgColor: { argb: "FFE2E8F0" },
+    fgColor: { argb: "FFD1FAE5" }, // emerald-100
   };
 
   let rowIndex = 8;

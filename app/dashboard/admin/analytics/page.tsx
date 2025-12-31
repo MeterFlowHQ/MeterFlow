@@ -1,9 +1,26 @@
 import { Suspense } from "react";
 import { getReadingsAnalytics } from "@/lib/analytics";
 import { ReadingLineChart } from "@/components/charts";
+import { AnalyticsFilters } from "./filters";
 
-export default async function AdminAnalyticsPage() {
-  const analytics = await getReadingsAnalytics({ dateRange: "month" });
+interface PageProps {
+  searchParams: {
+    dateRange?: string;
+    startDate?: string;
+    endDate?: string;
+  };
+}
+
+export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
+  const dateRange = (searchParams.dateRange as "today" | "week" | "month" | "custom") || "month";
+  const startDate = searchParams.startDate ? new Date(searchParams.startDate) : undefined;
+  const endDate = searchParams.endDate ? new Date(searchParams.endDate) : undefined;
+
+  const analytics = await getReadingsAnalytics({ 
+    dateRange, 
+    startDate, 
+    endDate 
+  });
 
   return (
     <section className="space-y-6">
@@ -16,6 +33,9 @@ export default async function AdminAnalyticsPage() {
           Export to Excel
         </a>
       </div>
+
+      {/* Filters */}
+      <AnalyticsFilters />
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
