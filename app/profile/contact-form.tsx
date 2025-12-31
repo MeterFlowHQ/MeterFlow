@@ -13,7 +13,7 @@ export function ContactForm({ currentContact }: ContactFormProps) {
   return (
     <form action={action} className="space-y-4">
       <div>
-        <label htmlFor="contactNumber" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-600">
           Phone Number
         </label>
         <input
@@ -23,7 +23,7 @@ export function ContactForm({ currentContact }: ContactFormProps) {
           defaultValue={currentContact}
           required
           placeholder="+1234567890"
-          className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
+          className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
         />
       </div>
 
@@ -32,7 +32,7 @@ export function ContactForm({ currentContact }: ContactFormProps) {
       )}
 
       {state?.success && (
-        <div className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
+        <div className="rounded-lg bg-green-50 p-3 text-sm text-green-600">
           Contact number updated successfully!
         </div>
       )}
@@ -40,7 +40,7 @@ export function ContactForm({ currentContact }: ContactFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-50"
+        className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
       >
         {isPending ? "Updating..." : "Update Contact"}
       </button>

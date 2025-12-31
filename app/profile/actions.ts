@@ -31,7 +31,7 @@ export async function updatePassword(formData: FormData) {
 
   const validation = passwordSchema.safeParse(data);
   if (!validation.success) {
-    return { error: validation.error.errors[0].message };
+    return { error: validation.error.issues[0].message };
   }
 
   const user = await prisma.user.findUnique({
@@ -75,7 +75,7 @@ export async function updateContact(formData: FormData) {
 
   const validation = contactSchema.safeParse(data);
   if (!validation.success) {
-    return { error: validation.error.errors[0].message };
+    return { error: validation.error.issues[0].message };
   }
 
   await prisma.user.update({
