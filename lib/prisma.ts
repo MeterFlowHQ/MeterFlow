@@ -7,19 +7,12 @@ const globalForPrisma = globalThis as unknown as {
   pool: Pool | undefined;
 };
 
-// Configure Pool with SSL settings for Supabase
-// The Pool's SSL config is used by PrismaPg adapter
+// Create Pool with SSL configuration for Supabase
 const pool: Pool =
   globalForPrisma.pool ??
-  new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL?.includes('supabase.com')
-      ? {
-          rejectUnauthorized: false, // Allow self-signed certificates from Supabase
-        }
-      : false,
-  });
+  new Pool({ connectionString: process.env.DATABASE_URL });
 
+// Create Prisma adapter using the Pool
 const adapter = new PrismaPg(pool);
 
 export const prisma: PrismaClient =
