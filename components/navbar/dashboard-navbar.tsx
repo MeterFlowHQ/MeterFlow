@@ -21,7 +21,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
       <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 md:gap-8">
-            <Link href={user.role === ROLES.ADMIN ? "/dashboard/admin" : "/dashboard/reader"} className="flex items-center gap-2">
+            <Link href={user.role === ROLES.ADMIN ? "/admin/dashboard" : "/reader/dashboard"} className="flex items-center gap-2">
               <Image 
                 src="/Meterflow-icon.png" 
                 alt="Meterflow Logo" 
@@ -39,31 +39,31 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
               {user.role === ROLES.ADMIN && (
                 <>
                   <Link 
-                    href="/dashboard/admin" 
+                    href="/admin/dashboard" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Dashboard
                   </Link>
                   <Link 
-                    href="/dashboard/admin/analytics" 
+                    href="/admin/analytics" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Analytics
                   </Link>
                   <Link 
-                    href="/dashboard/admin/meters" 
+                    href="/admin/meters" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Meters
                   </Link>
                   <Link 
-                    href="/dashboard/admin/readings" 
+                    href="/admin/readings" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Readings
                   </Link>
                   <Link 
-                    href="/dashboard/admin/users" 
+                    href="/admin/users" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Users
@@ -73,19 +73,19 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
               {user.role === ROLES.READER && (
                 <>
                   <Link 
-                    href="/dashboard/reader" 
+                    href="/reader/dashboard" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Dashboard
                   </Link>
                   <Link 
-                    href="/dashboard/reader/meters" 
+                    href="/reader/meters" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     My Meters
                   </Link>
                   <Link 
-                    href="/dashboard/reader/readings" 
+                    href="/reader/readings" 
                     className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     My Readings
@@ -138,35 +138,35 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
               {user.role === ROLES.ADMIN && (
                 <>
                   <Link 
-                    href="/dashboard/admin" 
+                    href="/admin/dashboard" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Dashboard
                   </Link>
                   <Link 
-                    href="/dashboard/admin/analytics" 
+                    href="/admin/analytics" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Analytics
                   </Link>
                   <Link 
-                    href="/dashboard/admin/meters" 
+                    href="/admin/meters" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Meters
                   </Link>
                   <Link 
-                    href="/dashboard/admin/readings" 
+                    href="/admin/readings" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Readings
                   </Link>
                   <Link 
-                    href="/dashboard/admin/users" 
+                    href="/admin/users" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
@@ -177,21 +177,21 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
               {user.role === ROLES.READER && (
                 <>
                   <Link 
-                    href="/dashboard/reader" 
+                    href="/reader/dashboard" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     Dashboard
                   </Link>
                   <Link 
-                    href="/dashboard/reader/meters" 
+                    href="/reader/meters" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >
                     My Meters
                   </Link>
                   <Link 
-                    href="/dashboard/reader/readings" 
+                    href="/reader/readings" 
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-emerald-50 hover:text-emerald-700"
                   >

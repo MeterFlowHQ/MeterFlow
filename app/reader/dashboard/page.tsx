@@ -40,7 +40,7 @@ export default async function ReaderHomePage() {
           <p className="text-sm font-medium text-gray-600">Assigned Meters</p>
           <p className="mt-2 text-2xl font-semibold text-emerald-600 sm:text-3xl">{assignedMetersCount}</p>
           <Link
-            href="/dashboard/reader/meters"
+            href="/reader/meters"
             className="mt-2 inline-block text-sm text-emerald-600 hover:text-emerald-700"
           >
             View my meters →
@@ -51,7 +51,7 @@ export default async function ReaderHomePage() {
           <p className="text-sm font-medium text-gray-600">Total Readings Submitted</p>
           <p className="mt-2 text-2xl font-semibold text-gray-900 sm:text-3xl">{totalReadings}</p>
           <Link
-            href="/dashboard/reader/readings"
+            href="/reader/readings"
             className="mt-2 inline-block text-sm text-emerald-600 hover:text-emerald-700"
           >
             View history →
@@ -95,13 +95,13 @@ export default async function ReaderHomePage() {
         </p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/dashboard/reader/meters"
+            href="/reader/meters"
             className="text-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
           >
             Submit Reading
           </Link>
           <Link
-            href="/dashboard/reader/readings"
+            href="/reader/readings"
             className="text-center rounded-lg border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 transition hover:bg-emerald-50"
           >
             View History

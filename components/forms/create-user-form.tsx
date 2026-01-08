@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useEffect } from "react";
-import { createUser } from "@/app/dashboard/admin/users/actions";
+import { createUser } from "@/app/admin/users/actions";
 import { ROLES } from "@/lib/constants";
 
 export function CreateUserForm() {

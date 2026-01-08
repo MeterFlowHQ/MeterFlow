@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { unassignMeter } from "@/app/dashboard/admin/users/actions";
+import { unassignMeter } from "@/app/admin/users/actions";
 
 interface UnassignMeterButtonProps {
   meterId: string;

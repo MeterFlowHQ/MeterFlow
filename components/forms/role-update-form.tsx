@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { updateUserRole } from "@/app/dashboard/admin/users/actions";
+import { updateUserRole } from "@/app/admin/users/actions";
 import { Toast } from "@/components/ui/toast";
 import { ROLES } from "@/lib/constants";
 

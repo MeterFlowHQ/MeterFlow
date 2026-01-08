@@ -1,16 +1,16 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { ROLES } from "@/lib/constants";
 import { DashboardNavbar } from "@/components/navbar/dashboard-navbar";
 
-export default async function DashboardLayout({
+export default async function ReaderLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const session = await auth();
-  if (!session?.user) {
-    redirect("/login");
-  }
+  if (!session?.user) redirect("/login");
+  if (session.user.role === ROLES.ADMIN) redirect("/admin/dashboard");
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">

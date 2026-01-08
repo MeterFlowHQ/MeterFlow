@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { assignMeter } from "@/app/dashboard/admin/users/actions";
+import { assignMeter } from "@/app/admin/users/actions";
 import { Toast } from "@/components/ui/toast";
 
 interface QuickAssignFormProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useEffect } from "react";
-import { updateMeter } from "@/app/dashboard/admin/meters/actions";
+import { updateMeter } from "@/app/admin/meters/actions";
 
 type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
 

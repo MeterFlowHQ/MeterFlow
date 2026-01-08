@@ -21,7 +21,7 @@ export default async function MeterDetailPage({ params }: MeterDetailPageProps) 
     <section className="space-y-6">
       {/* Back Button */}
       <Link
-        href="/dashboard/admin/meters"
+        href="/admin/meters"
         className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900"
       >
         <svg

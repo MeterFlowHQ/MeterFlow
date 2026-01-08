@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitReading } from "@/app/dashboard/reader/meters/actions";
+import { submitReading } from "@/app/reader/meters/actions";
 
 type ReadingType = "INCREASING" | "NORMAL";
 

@@ -42,7 +42,7 @@ export default async function AdminHomePage() {
       {/* Stats Grid */}
       <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
         <Link
-          href="/dashboard/admin/meters"
+          href="/admin/meters"
           className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Total Meters</p>
@@ -53,7 +53,7 @@ export default async function AdminHomePage() {
         </Link>
 
         <Link
-          href="/dashboard/admin/readings"
+          href="/admin/readings"
           className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Total Readings</p>
@@ -64,7 +64,7 @@ export default async function AdminHomePage() {
         </Link>
 
         <Link
-          href="/dashboard/admin/users"
+          href="/admin/users"
           className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Active Readers</p>
@@ -110,7 +110,7 @@ export default async function AdminHomePage() {
           <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">Quick Actions</h2>
           <div className="space-y-3">
             <Link
-              href="/dashboard/admin/analytics"
+              href="/admin/analytics"
               className="block rounded-lg border border-gray-200 p-3 transition hover:border-emerald-200 hover:bg-emerald-50 sm:p-4"
             >
               <p className="font-medium text-gray-900">View Analytics</p>

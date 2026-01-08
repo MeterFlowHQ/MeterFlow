@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { deleteMeter } from "@/app/dashboard/admin/meters/actions";
+import { deleteMeter } from "@/app/admin/meters/actions";
 
 interface DeleteMeterButtonProps {
   meterId: string;

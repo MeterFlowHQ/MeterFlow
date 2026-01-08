@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useEffect } from "react";
-import { createMeter } from "@/app/dashboard/admin/meters/actions";
+import { createMeter } from "@/app/admin/meters/actions";
 
 export function CreateMeterForm() {
   const [state, action, isPending] = useActionState(createMeter, undefined);

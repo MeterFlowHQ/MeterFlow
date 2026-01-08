@@ -22,7 +22,7 @@ export default async function ProfilePage() {
 
   if (!user) return null;
 
-  const dashboardUrl = session.user.role === ROLES.ADMIN ? "/dashboard/admin" : "/dashboard/reader";
+  const dashboardUrl = session.user.role === ROLES.ADMIN ? "/admin/dashboard" : "/reader/dashboard";
 
   return (
     <section className="space-y-4 sm:space-y-6">
