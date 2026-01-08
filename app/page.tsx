@@ -9,11 +9,11 @@ export default async function Home() {
   const session = await auth();
 
   if (session?.user?.role === ROLES.ADMIN) {
-    redirect("/dashboard/admin");
+    redirect("/admin/dashboard");
   }
 
   if (session?.user) {
-    redirect("/dashboard/reader");
+    redirect("/reader/dashboard");
   }
 
   return (
@@ -44,7 +44,7 @@ export default async function Home() {
               Log in to dashboard
             </Link>
             <Link
-              href="/dashboard/admin/analytics"
+              href="/admin/analytics"
               className="inline-flex items-center justify-center rounded-lg border border-emerald-600/30 px-5 py-3 text-sm font-semibold text-emerald-300 transition hover:border-emerald-500 hover:bg-emerald-600/10"
             >
               View analytics layout

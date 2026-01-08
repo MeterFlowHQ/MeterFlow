@@ -15,7 +15,7 @@ async function login(prevState: FormState, formData: FormData): Promise<FormStat
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/dashboard/admin",
+      redirectTo: "/admin/dashboard",
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -41,7 +41,7 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const session = await auth();
-  if (session?.user) redirect("/dashboard/admin");
+  if (session?.user) redirect("/admin/dashboard");
 
   const params = await searchParams;
   const urlError = params.error;

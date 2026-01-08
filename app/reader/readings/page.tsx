@@ -32,7 +32,7 @@ export default async function ReaderReadingsPage() {
           <div className="p-8 text-center text-gray-600">
             <p>No readings submitted yet.</p>
             <Link
-              href="/dashboard/reader/meters"
+              href="/reader/meters"
               className="mt-2 inline-block text-sm text-emerald-600 hover:text-emerald-700"
             >
               Go to My Meters to submit readings →
@@ -87,7 +87,7 @@ export default async function ReaderReadingsPage() {
           <div className="rounded-lg border border-gray-200 bg-white p-6 text-center text-gray-600 sm:p-8">
             <p>No readings submitted yet.</p>
             <Link
-              href="/dashboard/reader/meters"
+              href="/reader/meters"
               className="mt-2 inline-block text-sm text-emerald-600 hover:text-emerald-700"
             >
               Go to My Meters to submit readings →

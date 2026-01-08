@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { deleteMeter } from "@/app/dashboard/admin/meters/actions";
+import { deleteMeter } from "@/app/admin/meters/actions";
 
 interface DeleteMeterButtonProps {
   meterId: string;
@@ -31,9 +31,19 @@ export function DeleteMeterButton({ meterId, meterCode, hasReadings }: DeleteMet
             e.preventDefault();
           }
         }}
-        className="text-sm text-red-600 hover:text-red-700 disabled:opacity-50"
+        className="text-sm text-red-600 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPending ? "..." : "Delete"}
+        {isPending ? (
+          <span className="flex items-center gap-1">
+            <svg className="h-3 w-3 animate-spin" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+            Deleting
+          </span>
+        ) : (
+          "Delete"
+        )}
       </button>
       {state?.error && <span className="ml-2 text-xs text-red-600">{state.error}</span>}
     </form>

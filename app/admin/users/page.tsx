@@ -102,7 +102,7 @@ export default async function AdminUsersPage() {
                   <td className="px-6 py-4 text-gray-900">{user._count.readings}</td>
                   <td className="px-6 py-4">
                     <Link
-                      href={`/dashboard/admin/users/${user.id}`}
+                      href={`/admin/users/${user.id}`}
                       className="text-emerald-600 hover:text-emerald-700"
                     >
                       Manage
@@ -161,7 +161,7 @@ export default async function AdminUsersPage() {
               </div>
 
               <Link
-                href={`/dashboard/admin/users/${user.id}`}
+                href={`/admin/users/${user.id}`}
                 className="block text-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
               >
                 Manage User

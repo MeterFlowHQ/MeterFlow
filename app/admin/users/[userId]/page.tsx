@@ -51,7 +51,7 @@ export default async function UserManagementPage({ params }: PageProps) {
     <section className="space-y-6">
       <div>
         <Link
-          href="/dashboard/admin/users"
+          href="/admin/users"
           className="text-sm text-emerald-600 hover:text-emerald-700"
         >
           ← Back to Users

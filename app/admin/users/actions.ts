@@ -60,7 +60,7 @@ export async function createUser(
     },
   });
 
-  revalidatePath("/dashboard/admin/users");
+  revalidatePath("/admin/users");
   return { success: true };
 }
 
@@ -104,7 +104,7 @@ export async function updateUserRole(
     select: { name: true },
   });
 
-  revalidatePath("/dashboard/admin/users");
+  revalidatePath("/admin/users");
   return { 
     success: true, 
     userName: updatedUser?.name, 
@@ -154,8 +154,8 @@ export async function assignMeter(
     }),
   ]);
 
-  revalidatePath("/dashboard/admin/meters");
-  revalidatePath("/dashboard/admin/users");
+  revalidatePath("/admin/meters");
+  revalidatePath("/admin/users");
   return { 
     success: true, 
     userName: user?.name, 
@@ -183,7 +183,7 @@ export async function unassignMeter(
     data: { assignedUserId: null },
   });
 
-  revalidatePath("/dashboard/admin/meters");
-  revalidatePath("/dashboard/admin/users");
+  revalidatePath("/admin/meters");
+  revalidatePath("/admin/users");
   return { success: true };
 }

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { EditMeterForm } from "@/components/forms/edit-meter-form";
-import { deleteMeter } from "@/app/dashboard/admin/meters/actions";
+import { deleteMeter } from "@/app/admin/meters/actions";
 import { useActionState } from "react";
 
 type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";

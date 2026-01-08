@@ -55,7 +55,7 @@ export async function createMeter(
     },
   });
 
-  revalidatePath("/dashboard/admin/meters");
+  revalidatePath("/admin/meters");
   return { success: true };
 }
 
@@ -101,7 +101,7 @@ export async function updateMeter(
     },
   });
 
-  revalidatePath("/dashboard/admin/meters");
+  revalidatePath("/admin/meters");
   return { success: true };
 }
 
@@ -138,6 +138,6 @@ export async function deleteMeter(
     where: { id: meterId },
   });
 
-  revalidatePath("/dashboard/admin/meters");
+  revalidatePath("/admin/meters");
   return { success: true };
 }

@@ -73,7 +73,7 @@ export async function submitReading(
     },
   });
 
-  revalidatePath("/dashboard/reader/meters");
-  revalidatePath("/dashboard/reader/readings");
+  revalidatePath("/reader/meters");
+  revalidatePath("/reader/readings");
   return { success: true };
 }

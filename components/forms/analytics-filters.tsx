@@ -17,7 +17,7 @@ export function AnalyticsFilters() {
     if (dateRange === "custom" && startDate) params.set("startDate", startDate);
     if (dateRange === "custom" && endDate) params.set("endDate", endDate);
     
-    router.push(`/dashboard/admin/analytics?${params.toString()}`);
+    router.push(`/admin/analytics?${params.toString()}`);
   };
 
   return (
