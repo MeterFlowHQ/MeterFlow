@@ -49,7 +49,11 @@ export function AssignMeterForm({ userId, unassignedMeters }: AssignMeterFormPro
         disabled={isPending}
         className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
       >
-        {isPending ? "Assigning..." : "Assign Meter"}
+        {isPending ? (
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+        ) : (
+          "Assign Meter"
+        )}
       </button>
     </form>
   );
