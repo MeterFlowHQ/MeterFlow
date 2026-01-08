@@ -11,9 +11,9 @@ const pool: Pool =
   globalForPrisma.pool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, // Required for Supabase SSL connections
-    },
+    ssl: process.env.DATABASE_URL?.includes('supabase.com')
+      ? { rejectUnauthorized: false }
+      : false,
   });
 
 const adapter = new PrismaPg(pool);
