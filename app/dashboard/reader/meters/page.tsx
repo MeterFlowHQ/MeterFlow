@@ -23,8 +23,8 @@ export default async function ReaderMetersPage() {
   if (assignedMeters.length === 0) {
     return (
       <section className="space-y-4">
-        <h1 className="text-2xl font-semibold text-gray-900">My Meters</h1>
-        <div className="rounded-lg border border-gray-200 bg-white p-8 text-center">
+        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">My Meters</h1>
+        <div className="rounded-lg border border-gray-200 bg-white p-6 text-center sm:p-8">
           <p className="text-gray-600">No meters assigned to you yet.</p>
           <p className="mt-2 text-sm text-gray-500">
             Contact your administrator to get meters assigned.
@@ -35,32 +35,32 @@ export default async function ReaderMetersPage() {
   }
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">My Meters</h1>
+        <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">My Meters</h1>
         <p className="mt-1 text-sm text-gray-600">
           {assignedMeters.length} meter{assignedMeters.length !== 1 ? "s" : ""} assigned to you
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {assignedMeters.map((meter) => {
           const lastReading = meter.readings[0];
           return (
             <div
               key={meter.id}
-              className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
+              className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6"
             >
               <div className="mb-4 flex items-start justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{meter.meterCode}</h3>
-                  <p className="mt-1 text-sm text-gray-600">{meter.location}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base font-semibold text-gray-900 sm:text-lg truncate">{meter.meterCode}</h3>
+                  <p className="mt-1 text-sm text-gray-600 truncate">{meter.location}</p>
                 </div>
                 <Link
                   href={`/meters/${meter.id}`}
-                  className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                  className="ml-2 flex-shrink-0 text-sm font-medium text-emerald-600 hover:text-emerald-700"
                 >
-                  View Details →
+                  View →
                 </Link>
               </div>
 

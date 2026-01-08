@@ -24,8 +24,8 @@ export default async function ProfilePage() {
   const dashboardUrl = session.user.role === "ADMIN" ? "/dashboard/admin" : "/dashboard/reader";
 
   return (
-    <section className="space-y-6">
-      <div className="mb-6">
+    <section className="space-y-4 sm:space-y-6">
+      <div className="mb-4 sm:mb-6">
         <Link
           href={dashboardUrl}
           className="inline-flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-700"
@@ -35,32 +35,32 @@ export default async function ProfilePage() {
           </svg>
           Back to Dashboard
         </Link>
-        <h1 className="mt-4 text-3xl font-bold text-gray-900">Profile Settings</h1>
-        <p className="mt-2 text-base text-gray-600">Manage your account settings and preferences</p>
+        <h1 className="mt-3 text-2xl font-bold text-gray-900 sm:mt-4 sm:text-3xl">Profile Settings</h1>
+        <p className="mt-1 text-sm text-gray-600 sm:mt-2 sm:text-base">Manage your account settings and preferences</p>
       </div>
 
       {/* Profile Info Card */}
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-6 py-4">
-          <h2 className="text-lg font-semibold text-gray-900">Profile Information</h2>
+        <div className="border-b border-gray-200 px-4 py-3 sm:px-6 sm:py-4">
+          <h2 className="text-base font-semibold text-gray-900 sm:text-lg">Profile Information</h2>
         </div>
-        <div className="p-6">
-          <div className="flex items-start gap-6">
+        <div className="p-4 sm:p-6">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:gap-6">
             <div className="flex-shrink-0">
               {user.profileImageUrl ? (
                 <img
                   src={user.profileImageUrl}
                   alt={user.name}
-                  className="h-24 w-24 rounded-full object-cover ring-4 ring-emerald-50"
+                  className="h-20 w-20 rounded-full object-cover ring-4 ring-emerald-50 sm:h-24 sm:w-24"
                 />
               ) : (
-                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100 text-3xl font-semibold text-emerald-700 ring-4 ring-emerald-50">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-2xl font-semibold text-emerald-700 ring-4 ring-emerald-50 sm:h-24 sm:w-24 sm:text-3xl">
                   {user.name.charAt(0).toUpperCase()}
                 </div>
               )}
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gray-900">{user.name}</h3>
+              <h3 className="text-lg font-semibold text-gray-900 sm:text-xl">{user.name}</h3>
               <p className="mt-1 text-sm text-gray-600">{user.email}</p>
               {user.contactNumber && (
                 <p className="mt-1 text-sm text-gray-600">📞 {user.contactNumber}</p>
@@ -77,21 +77,21 @@ export default async function ProfilePage() {
 
       {/* Contact Number */}
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-6 py-4">
-          <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
+        <div className="border-b border-gray-200 px-4 py-3 sm:px-6 sm:py-4">
+          <h2 className="text-base font-semibold text-gray-900 sm:text-lg">Contact Information</h2>
         </div>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <ContactForm currentContact={user.contactNumber || ""} />
         </div>
       </div>
 
       {/* Password Change */}
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-        <div className="border-b border-gray-200 px-6 py-4">
-          <h2 className="text-lg font-semibold text-gray-900">Change Password</h2>
+        <div className="border-b border-gray-200 px-4 py-3 sm:px-6 sm:py-4">
+          <h2 className="text-base font-semibold text-gray-900 sm:text-lg">Change Password</h2>
           <p className="mt-1 text-sm text-gray-600">Update your password to keep your account secure</p>
         </div>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <PasswordForm />
         </div>
       </div>

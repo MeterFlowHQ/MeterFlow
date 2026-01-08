@@ -53,7 +53,7 @@ export function AdminMetersList({ meters, readers }: AdminMetersListProps) {
   return (
     <>
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
         <button
           onClick={() => setFilter("all")}
           className="text-left transition hover:scale-105"
@@ -88,8 +88,8 @@ export function AdminMetersList({ meters, readers }: AdminMetersListProps) {
         </button>
       </div>
 
-      {/* Meters List */}
-      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+      {/* Meters List - Desktop Table View */}
+      <div className="hidden lg:block rounded-lg border border-gray-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-600">
@@ -167,6 +167,81 @@ export function AdminMetersList({ meters, readers }: AdminMetersListProps) {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Meters List - Mobile Card View */}
+      <div className="lg:hidden space-y-3">
+        {filteredMeters.length === 0 ? (
+          <div className="rounded-lg border border-gray-200 bg-white p-6 text-center text-gray-500">
+            No meters found
+          </div>
+        ) : (
+          filteredMeters.map((meter) => (
+            <div key={meter.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+              <div className="space-y-3">
+                {/* Header */}
+                <div className="flex items-start justify-between">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-semibold text-gray-900">{meter.meterCode}</span>
+                      {meter.status === "DISABLED" && (
+                        <span className="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                          Disabled
+                        </span>
+                      )}
+                      {meter.status === "NOT_WORKING" && (
+                        <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
+                          Not Working
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600">{meter.location}</p>
+                  </div>
+                  <MeterActionsDropdown meter={meter} />
+                </div>
+
+                {/* Assignment Info */}
+                <div className="border-t border-gray-100 pt-3">
+                  <p className="text-xs font-medium text-gray-500 uppercase mb-2">Assigned To</p>
+                  {meter.assignedUser ? (
+                    <div className="space-y-2">
+                      <div>
+                        <div className="font-medium text-gray-900 text-sm">
+                          {meter.assignedUser.name}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {meter.assignedUser.email}
+                        </div>
+                      </div>
+                      <UnassignMeterButton
+                        meterId={meter.id}
+                        meterCode={meter.meterCode}
+                      />
+                    </div>
+                  ) : meter.status === "ENABLED" ? (
+                    <QuickAssignForm meterId={meter.id} readers={readers} />
+                  ) : (
+                    <span className="text-sm text-gray-400">Not available</span>
+                  )}
+                </div>
+
+                {/* Stats & Actions */}
+                <div className="flex items-center justify-between border-t border-gray-100 pt-3">
+                  <div>
+                    <p className="text-xs font-medium text-gray-500">Readings</p>
+                    <p className="text-lg font-semibold text-gray-900">{meter._count.readings}</p>
+                  </div>
+                  <Link
+                    href={`/meters/${meter.id}`}
+                    className="inline-flex items-center rounded-md border border-emerald-600 bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </>
   );
