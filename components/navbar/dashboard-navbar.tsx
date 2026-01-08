@@ -20,7 +20,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
       <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 md:gap-8">
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link href={user.role === "ADMIN" ? "/dashboard/admin" : "/dashboard/reader"} className="flex items-center gap-2">
               <Image 
                 src="/Meterflow-icon.png" 
                 alt="Meterflow Logo" 
@@ -29,7 +29,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
                 className="h-8 w-8"
               />
               <div className="flex flex-col">
-                <span className="text-lg font-bold text-emerald-600">Meterflow</span>
+                <span className="text-lg font-bold text-emerald-600">MeterFlow</span>
                 <span className="hidden text-xs text-gray-600 sm:block">{user.email}</span>
               </div>
             </Link>
