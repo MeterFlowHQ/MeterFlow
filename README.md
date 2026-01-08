@@ -19,6 +19,7 @@ docker compose up -d db
 4) Apply schema and seed admin user:
 ```bash
 # Run migrations
+pnpm prisma generate
 pnpm exec prisma migrate deploy
 
 # Seed admin user

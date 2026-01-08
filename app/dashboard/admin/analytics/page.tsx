@@ -66,7 +66,7 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
         <h2 className="mb-4 text-lg font-semibold text-gray-900">Readings Over Time</h2>
         <Suspense fallback={<div className="h-[300px] animate-pulse bg-gray-50" />}>
           <ReadingLineChart
-            data={analytics.readingsByDay.map((d) => ({
+            data={analytics.readingsByDay.map((d: { date: Date; count: number }) => ({
               date: d.date,
               value: d.count,
             }))}
