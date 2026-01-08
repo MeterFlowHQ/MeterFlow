@@ -9,7 +9,12 @@ const globalForPrisma = globalThis as unknown as {
 
 const pool: Pool =
   globalForPrisma.pool ??
-  new Pool({ connectionString: process.env.DATABASE_URL });
+  new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false, // Required for Supabase SSL connections
+    },
+  });
 
 const adapter = new PrismaPg(pool);
 
