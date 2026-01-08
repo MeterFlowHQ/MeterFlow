@@ -28,25 +28,25 @@ export default async function AdminHomePage() {
   ]);
 
   return (
-    <section className="space-y-6">
-      <div className="flex items-center justify-between">
+    <section className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h1>
+          <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl">Admin Dashboard</h1>
           <p className="mt-1 text-sm text-gray-600">Welcome, {session?.user.name || session?.user.email}</p>
         </div>
-        <span className="rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+        <span className="self-start rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold text-emerald-700 sm:self-auto">
           {session?.user.role}
         </span>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
         <Link
           href="/dashboard/admin/meters"
-          className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
+          className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Total Meters</p>
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{totalMeters}</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900 sm:text-3xl">{totalMeters}</p>
           <p className="mt-2 text-sm text-emerald-600 group-hover:text-emerald-700">
             Manage meters →
           </p>
@@ -54,10 +54,10 @@ export default async function AdminHomePage() {
 
         <Link
           href="/dashboard/admin/readings"
-          className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
+          className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Total Readings</p>
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{totalReadings}</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900 sm:text-3xl">{totalReadings}</p>
           <p className="mt-2 text-sm text-emerald-600 group-hover:text-emerald-700">
             View all readings →
           </p>
@@ -65,10 +65,10 @@ export default async function AdminHomePage() {
 
         <Link
           href="/dashboard/admin/users"
-          className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-md"
+          className="group rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-200 hover:shadow-md sm:p-6"
         >
           <p className="text-sm font-medium text-gray-600">Active Readers</p>
-          <p className="mt-2 text-3xl font-semibold text-gray-900">{totalUsers}</p>
+          <p className="mt-2 text-2xl font-semibold text-gray-900 sm:text-3xl">{totalUsers}</p>
           <p className="mt-2 text-sm text-emerald-600 group-hover:text-emerald-700">
             Manage users →
           </p>
@@ -76,9 +76,9 @@ export default async function AdminHomePage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Recent Readings</h2>
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+          <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">Recent Readings</h2>
           {recentReadings.length > 0 ? (
             <div className="space-y-3">
               {recentReadings.map((reading: RecentReading) => (
@@ -86,11 +86,11 @@ export default async function AdminHomePage() {
                   key={reading.id}
                   className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-0"
                 >
-                  <div>
-                    <p className="font-medium text-gray-900">{reading.meter.meterCode}</p>
-                    <p className="text-sm text-gray-600">{reading.user.name}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-medium text-gray-900">{reading.meter.meterCode}</p>
+                    <p className="truncate text-sm text-gray-600">{reading.user.name}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="ml-4 text-right flex-shrink-0">
                     <p className="font-semibold text-emerald-600">
                       {Number(reading.readingValue).toFixed(2)}
                     </p>
@@ -106,19 +106,19 @@ export default async function AdminHomePage() {
           )}
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Quick Actions</h2>
+        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+          <h2 className="mb-4 text-base font-semibold text-gray-900 sm:text-lg">Quick Actions</h2>
           <div className="space-y-3">
             <Link
               href="/dashboard/admin/analytics"
-              className="block rounded-lg border border-gray-200 p-4 transition hover:border-emerald-200 hover:bg-emerald-50"
+              className="block rounded-lg border border-gray-200 p-3 transition hover:border-emerald-200 hover:bg-emerald-50 sm:p-4"
             >
               <p className="font-medium text-gray-900">View Analytics</p>
               <p className="mt-1 text-sm text-gray-600">Analyze readings and performance</p>
             </Link>
             <Link
               href="/api/export"
-              className="block rounded-lg border border-gray-200 p-4 transition hover:border-emerald-200 hover:bg-emerald-50"
+              className="block rounded-lg border border-gray-200 p-3 transition hover:border-emerald-200 hover:bg-emerald-50 sm:p-4"
             >
               <p className="font-medium text-gray-900">Export Data</p>
               <p className="mt-1 text-sm text-gray-600">Download readings to Excel</p>
@@ -128,7 +128,7 @@ export default async function AdminHomePage() {
       </div>
 
       {/* Help Section */}
-      <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-6">
+      <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 sm:p-6">
         <h3 className="font-semibold text-emerald-900">System Overview</h3>
         <p className="mt-2 text-sm text-emerald-700">
           Manage users, meters, readings, and view comprehensive analytics. All operations are secured with role-based access control.

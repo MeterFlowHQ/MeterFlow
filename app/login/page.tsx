@@ -47,11 +47,11 @@ export default async function LoginPage({
   const urlError = params.error;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900 px-4">
-      <div className="w-full max-w-md space-y-6 rounded-2xl border border-emerald-600/20 bg-emerald-950/30 p-8 text-white shadow-xl">
+    <div className="flex min-h-screen items-center justify-center bg-gray-900 px-3 py-8 sm:px-4">
+      <div className="w-full max-w-md space-y-6 rounded-2xl border border-emerald-600/20 bg-emerald-950/30 p-6 text-white shadow-xl sm:p-8">
         <div className="space-y-2 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-emerald-300">Meterflow</p>
-          <h1 className="text-2xl font-semibold">Sign in</h1>
+          <h1 className="text-xl font-semibold sm:text-2xl">Sign in</h1>
           <p className="text-sm text-gray-300">Use the credentials provided by your administrator.</p>
         </div>
         {urlError && (

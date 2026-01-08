@@ -21,7 +21,7 @@ export function CreateUserForm() {
     return (
       <button
         onClick={() => setShowForm(true)}
-        className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
+        className="w-full sm:w-auto rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
       >
         + Create New User
       </button>
@@ -29,9 +29,9 @@ export function CreateUserForm() {
   }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900">Create New User</h3>
+        <h3 className="text-base font-semibold text-gray-900 sm:text-lg">Create New User</h3>
       </div>
 
       <form action={action} className="space-y-4">
@@ -115,11 +115,11 @@ export function CreateUserForm() {
           </div>
         )}
 
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
           <button
             type="submit"
             disabled={isPending}
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
+            className="flex-1 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:opacity-50"
           >
             {isPending ? "Creating..." : "Create User"}
           </button>
