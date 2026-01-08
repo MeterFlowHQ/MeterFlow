@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+// Conditional import helper for upload functionality
+import type { saveLocalFile as SaveLocalFileType } from "@/lib/uploads/local";
 
 const passwordSchema = z
   .object({
@@ -119,6 +121,11 @@ export async function uploadProfileImage(
   }
 
   try {
+    // Check if we're in production (Vercel) - file uploads not supported yet
+    if (process.env.VERCEL) {
+      return { error: "File uploads are not yet configured for production. Please set up cloud storage (Vercel Blob, S3, etc.)" };
+    }
+
     // Import dynamically to avoid build issues
     const { saveLocalFile } = await import("@/lib/uploads/local");
     const imagePath = await saveLocalFile(file);
