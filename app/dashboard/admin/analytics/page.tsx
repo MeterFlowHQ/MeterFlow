@@ -88,7 +88,7 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {analytics.readingsByMeter.map((meter) => (
+              {analytics.readingsByMeter.map((meter: { meterId: string; meterCode?: string; location?: string; count: number; avgReading?: number | null }) => (
                 <tr key={meter.meterId} className="hover:bg-gray-50">
                   <td className="py-3 pr-4 font-medium text-gray-900">{meter.meterCode}</td>
                   <td className="py-3 pr-4 text-gray-600">{meter.location}</td>
