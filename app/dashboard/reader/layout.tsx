@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { ROLES } from "@/lib/constants";
 
 export default async function ReaderLayout({
   children,
@@ -9,6 +10,6 @@ export default async function ReaderLayout({
 }) {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  if (session.user.role === "ADMIN") redirect("/dashboard/admin");
+  if (session.user.role === ROLES.ADMIN) redirect("/dashboard/admin");
   return <>{children}</>;
 }

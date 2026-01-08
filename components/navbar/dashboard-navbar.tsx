@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { handleSignOut } from "./actions";
+import { ROLES } from "@/lib/constants";
 
 interface DashboardNavbarProps {
   user: {
@@ -20,7 +21,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
       <div className="mx-auto max-w-7xl px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 md:gap-8">
-            <Link href={user.role === "ADMIN" ? "/dashboard/admin" : "/dashboard/reader"} className="flex items-center gap-2">
+            <Link href={user.role === ROLES.ADMIN ? "/dashboard/admin" : "/dashboard/reader"} className="flex items-center gap-2">
               <Image 
                 src="/Meterflow-icon.png" 
                 alt="Meterflow Logo" 
@@ -35,7 +36,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1">
-              {user.role === "ADMIN" && (
+              {user.role === ROLES.ADMIN && (
                 <>
                   <Link 
                     href="/dashboard/admin" 
@@ -69,7 +70,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
                   </Link>
                 </>
               )}
-              {user.role === "READER" && (
+              {user.role === ROLES.READER && (
                 <>
                   <Link 
                     href="/dashboard/reader" 
@@ -134,7 +135,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
               <p className="text-sm text-gray-600 px-2">{user.email}</p>
             </div>
             <nav className="flex flex-col space-y-1">
-              {user.role === "ADMIN" && (
+              {user.role === ROLES.ADMIN && (
                 <>
                   <Link 
                     href="/dashboard/admin" 
@@ -173,7 +174,7 @@ export function DashboardNavbar({ user }: DashboardNavbarProps) {
                   </Link>
                 </>
               )}
-              {user.role === "READER" && (
+              {user.role === ROLES.READER && (
                 <>
                   <Link 
                     href="/dashboard/reader" 

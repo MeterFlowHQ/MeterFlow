@@ -2,6 +2,7 @@
 
 import { useActionState, useState, useEffect } from "react";
 import { createUser } from "@/app/dashboard/admin/users/actions";
+import { ROLES } from "@/lib/constants";
 
 export function CreateUserForm() {
   const [state, action, isPending] = useActionState(createUser, undefined);
@@ -72,8 +73,8 @@ export function CreateUserForm() {
               required
               className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
             >
-              <option value="READER">Reader</option>
-              <option value="ADMIN">Admin</option>
+              <option value={ROLES.READER}>Reader</option>
+              <option value={ROLES.ADMIN}>Admin</option>
             </select>
           </div>
 

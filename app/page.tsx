@@ -3,11 +3,12 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
+import { ROLES } from "@/lib/constants";
 
 export default async function Home() {
   const session = await auth();
 
-  if (session?.user?.role === "ADMIN") {
+  if (session?.user?.role === ROLES.ADMIN) {
     redirect("/dashboard/admin");
   }
 

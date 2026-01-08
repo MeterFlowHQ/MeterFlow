@@ -3,6 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 import bcrypt from "bcrypt";
 import { config as loadEnv } from "dotenv";
+import { ROLES } from "../lib/constants";
 
 // Load environment variables
 loadEnv();
@@ -37,7 +38,7 @@ async function main() {
       name: "Admin User",
       email: adminEmail,
       passwordHash,
-      role: "ADMIN",
+      role: ROLES.ADMIN,
     },
   });
 

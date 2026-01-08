@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CreateUserForm } from "@/components/forms/create-user-form";
 import { RoleUpdateForm } from "@/components/forms/role-update-form";
 import { StatCard } from "@/components/cards/stat-card";
+import { ROLES } from "@/lib/constants";
 
 export default async function AdminUsersPage() {
   const users = await prisma.user.findMany({
@@ -27,8 +28,8 @@ export default async function AdminUsersPage() {
   });
 
   const totalUsers = users.length;
-  const adminCount = users.filter((u) => u.role === "ADMIN").length;
-  const readerCount = users.filter((u) => u.role === "READER").length;
+  const adminCount = users.filter((u) => u.role === ROLES.ADMIN).length;
+  const readerCount = users.filter((u) => u.role === ROLES.READER).length;
 
   return (
     <section className="space-y-4 sm:space-y-6">

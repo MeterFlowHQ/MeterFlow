@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { ROLES } from "@/lib/constants";
 
 type MeterStatus = "ENABLED" | "DISABLED" | "NOT_WORKING";
 type ReadingType = "INCREASING" | "NORMAL";
@@ -20,7 +21,7 @@ export async function createMeter(
   formData: FormData
 ) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") {
+  if (session?.user?.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
@@ -63,7 +64,7 @@ export async function updateMeter(
   formData: FormData
 ) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") {
+  if (session?.user?.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
@@ -109,7 +110,7 @@ export async function deleteMeter(
   formData: FormData
 ) {
   const session = await auth();
-  if (session?.user?.role !== "ADMIN") {
+  if (session?.user?.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
