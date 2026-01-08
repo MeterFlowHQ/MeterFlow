@@ -1,6 +1,14 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { Prisma } from "@prisma/client";
+
+type RecentReading = Prisma.MeterReadingGetPayload<{
+  include: {
+    meter: { select: { meterCode: true } };
+    user: { select: { name: true } };
+  };
+}>;
 
 export default async function AdminHomePage() {
   const session = await auth();
@@ -73,7 +81,7 @@ export default async function AdminHomePage() {
           <h2 className="mb-4 text-lg font-semibold text-gray-900">Recent Readings</h2>
           {recentReadings.length > 0 ? (
             <div className="space-y-3">
-              {recentReadings.map((reading) => (
+              {recentReadings.map((reading: RecentReading) => (
                 <div
                   key={reading.id}
                   className="flex items-center justify-between border-b border-gray-100 pb-3 last:border-0"

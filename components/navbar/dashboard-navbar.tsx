@@ -9,7 +9,7 @@ interface DashboardNavbarProps {
   };
 }
 
-export async function DashboardNavbar({ user }: DashboardNavbarProps) {
+export function DashboardNavbar({ user }: DashboardNavbarProps) {
   return (
     <header className="border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-4 py-4">

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
 import { auth } from "@/auth";
+import { Prisma } from "@prisma/client";
 
 export type DateRange = "today" | "week" | "month" | "custom";
 
@@ -12,7 +13,36 @@ interface AnalyticsFilters {
   userId?: string;
 }
 
-export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
+interface ReadingByDay {
+  date: Date;
+  count: number;
+}
+
+interface ReadingByMeter {
+  meterId: string;
+  meterCode?: string;
+  location?: string;
+  count: number;
+  avgReading?: Prisma.Decimal | null;
+  totalReading?: Prisma.Decimal | null;
+}
+
+interface ReaderPerformance {
+  userId: string;
+  userName?: string;
+  userEmail?: string;
+  readingsCount: number;
+}
+
+interface AnalyticsResult {
+  totalReadings: number;
+  dateRange: { from: Date; to: Date };
+  readingsByDay: ReadingByDay[];
+  readingsByMeter: ReadingByMeter[];
+  readerPerformance: ReaderPerformance[];
+}
+
+export async function getReadingsAnalytics(filters: AnalyticsFilters = {}): Promise<AnalyticsResult> {
   const { dateRange = "month", startDate, endDate, meterId, userId } = filters;
 
   // Calculate date boundaries
@@ -34,7 +64,7 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
     to = endOfMonth(now);
   }
 
-  const where = {
+  const where: Prisma.MeterReadingWhereInput = {
     recordedAt: {
       gte: from,
       lte: to,
@@ -47,7 +77,7 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
   const totalReadings = await prisma.meterReading.count({ where });
 
   // Readings by day
-  const readingsByDay = await prisma.meterReading.groupBy({
+  const readingsByDayRaw = await prisma.meterReading.groupBy({
     by: ["recordedAt"],
     where,
     _count: true,
@@ -55,7 +85,7 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
   });
 
   // Readings by meter
-  const readingsByMeter = await prisma.meterReading.groupBy({
+  const readingsByMeterRaw = await prisma.meterReading.groupBy({
     by: ["meterId"],
     where,
     _count: true,
@@ -63,8 +93,8 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
     _sum: { readingValue: true },
   });
 
-  const metersWithDetails = await Promise.all(
-    readingsByMeter.map(async (r) => {
+  const metersWithDetails: ReadingByMeter[] = await Promise.all(
+    readingsByMeterRaw.map(async (r) => {
       const meter = await prisma.meter.findUnique({
         where: { id: r.meterId },
         select: { meterCode: true, location: true },
@@ -81,22 +111,22 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
   );
 
   // Readings by user (reader performance)
-  const readingsByUser = await prisma.meterReading.groupBy({
+  const readingsByUserRaw = await prisma.meterReading.groupBy({
     by: ["userId"],
     where,
     _count: true,
   });
 
-  const usersWithDetails = await Promise.all(
-    readingsByUser.map(async (r) => {
+  const usersWithDetails: ReaderPerformance[] = await Promise.all(
+    readingsByUserRaw.map(async (r) => {
       const user = await prisma.user.findUnique({
         where: { id: r.userId },
         select: { name: true, email: true },
       });
       return {
         userId: r.userId,
-        userName: user?.name,
-        userEmail: user?.email,
+        userName: user?.name ?? undefined,
+        userEmail: user?.email ?? undefined,
         readingsCount: r._count,
       };
     })
@@ -105,7 +135,7 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
   return {
     totalReadings,
     dateRange: { from, to },
-    readingsByDay: readingsByDay.map((r) => ({
+    readingsByDay: readingsByDayRaw.map((r): ReadingByDay => ({
       date: r.recordedAt,
       count: r._count,
     })),
@@ -114,7 +144,33 @@ export async function getReadingsAnalytics(filters: AnalyticsFilters = {}) {
   };
 }
 
-export async function getMeterAnalytics(meterId: string) {
+interface ReadingWithDelta {
+  id: string;
+  value: number;
+  recordedAt: Date;
+  recordedBy: string | null;
+  delta: number;
+  dailyAverage: number;
+}
+
+interface MeterAnalyticsResult {
+  meter: Prisma.MeterGetPayload<{
+    include: {
+      assignedUser: {
+        select: { id: true; name: true; email: true };
+      };
+    };
+  }>;
+  readings: ReadingWithDelta[];
+  stats: {
+    totalReadings: number;
+    totalConsumption: number;
+    avgDailyConsumption: number;
+    latestReading?: Prisma.Decimal;
+  };
+}
+
+export async function getMeterAnalytics(meterId: string): Promise<MeterAnalyticsResult | null> {
   const session = await auth();
   
   const meter = await prisma.meter.findUnique({
@@ -149,7 +205,7 @@ export async function getMeterAnalytics(meterId: string) {
   });
 
   // Calculate deltas and stats
-  const readingsWithDelta = readings.map((reading, idx) => {
+  const readingsWithDelta: ReadingWithDelta[] = readings.map((reading, idx) => {
     const prevReading = idx > 0 ? readings[idx - 1] : null;
     const delta = prevReading
       ? Number(reading.readingValue) - Number(prevReading.readingValue)

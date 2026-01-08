@@ -1,6 +1,7 @@
 import ExcelJS from "exceljs";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { Prisma } from "@prisma/client";
 
 interface ExportFilters {
   startDate?: Date;
@@ -9,10 +10,10 @@ interface ExportFilters {
   userId?: string;
 }
 
-export async function generateReadingsExport(filters: ExportFilters = {}) {
+export async function generateReadingsExport(filters: ExportFilters = {}): Promise<Buffer> {
   const { startDate, endDate, meterId, userId } = filters;
 
-  const where = {
+  const where: Prisma.MeterReadingWhereInput = {
     ...(startDate && endDate && {
       recordedAt: {
         gte: startDate,
@@ -83,10 +84,10 @@ export async function generateReadingsExport(filters: ExportFilters = {}) {
 
   // Generate buffer
   const buffer = await workbook.xlsx.writeBuffer();
-  return buffer;
+  return Buffer.from(buffer);
 }
 
-export async function generateMeterExport(meterId: string) {
+export async function generateMeterExport(meterId: string): Promise<Buffer> {
   const session = await auth();
   
   const meter = await prisma.meter.findUnique({
@@ -119,7 +120,7 @@ export async function generateMeterExport(meterId: string) {
   }
 
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet(meter.meterCode);
+  const worksheet = workbook.addWorksheet(meter.meterCode ?? "Meter");
 
   // Meter info section
   worksheet.mergeCells("A1:B1");
@@ -131,7 +132,7 @@ export async function generateMeterExport(meterId: string) {
   worksheet.getCell("A3").value = "Location:";
   worksheet.getCell("B3").value = meter.location;
   worksheet.getCell("A4").value = "Assigned To:";
-  worksheet.getCell("B4").value = meter.assignedUser?.name || "Unassigned";
+  worksheet.getCell("B4").value = meter.assignedUser?.name ?? "Unassigned";
 
   // Readings table
   worksheet.getCell("A6").value = "Readings History";
@@ -174,5 +175,5 @@ export async function generateMeterExport(meterId: string) {
   worksheet.getColumn("C").numFmt = "#,##0.00";
 
   const buffer = await workbook.xlsx.writeBuffer();
-  return buffer;
+  return Buffer.from(buffer);
 }

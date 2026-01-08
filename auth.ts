@@ -1,15 +1,19 @@
-import NextAuth, { type NextAuthConfig } from "next-auth";
+import NextAuth, { type NextAuthConfig, type User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { type Role } from "@prisma/client";
+import { Role } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 
 const credentialsSchema = z.object({
-  email: z.email(),
+  email: z.string().email(),
   password: z.string().min(8),
 });
+
+interface ExtendedUser extends User {
+  role: Role;
+}
 
 const authOptions: NextAuthConfig = {
   session: {
@@ -25,7 +29,7 @@ const authOptions: NextAuthConfig = {
   providers: [
     Credentials({
       name: "Credentials",
-      authorize: async (credentials) => {
+      authorize: async (credentials): Promise<ExtendedUser | null> => {
         const parsed = credentialsSchema.safeParse(credentials);
         if (!parsed.success) return null;
 
@@ -56,7 +60,8 @@ const authOptions: NextAuthConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as { role?: string }).role;
+        const extendedUser = user as ExtendedUser;
+        token.role = extendedUser.role;
       } else if (token.sub) {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.sub },
@@ -66,10 +71,10 @@ const authOptions: NextAuthConfig = {
       }
       return token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       if (session.user && token) {
         session.user.id = token.sub ?? "";
-        session.user.role = (token.role as Role | undefined) ?? "READER";
+        session.user.role = (token.role as Role) ?? "READER";
       }
       return session;
     },

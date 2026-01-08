@@ -66,7 +66,7 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
         <h2 className="mb-4 text-lg font-semibold text-gray-900">Readings Over Time</h2>
         <Suspense fallback={<div className="h-[300px] animate-pulse bg-gray-50" />}>
           <ReadingLineChart
-            data={analytics.readingsByDay.map((d: { date: Date; count: number }) => ({
+            data={analytics.readingsByDay.map((d) => ({
               date: d.date,
               value: d.count,
             }))}
@@ -88,7 +88,7 @@ export default async function AdminAnalyticsPage({ searchParams }: PageProps) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {analytics.readingsByMeter.map((meter: { meterId: string; meterCode?: string; location?: string; count: number; avgReading?: number | null }) => (
+              {analytics.readingsByMeter.map((meter) => (
                 <tr key={meter.meterId} className="hover:bg-gray-50">
                   <td className="py-3 pr-4 font-medium text-gray-900">{meter.meterCode}</td>
                   <td className="py-3 pr-4 text-gray-600">{meter.location}</td>

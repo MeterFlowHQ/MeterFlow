@@ -8,8 +8,8 @@ type FormState = { error: string; email?: string } | undefined;
 
 async function login(prevState: FormState, formData: FormData): Promise<FormState> {
   "use server";
-  const email = String(formData.get("email") ?? "");
-  const password = String(formData.get("password") ?? "");
+  const email = String(formData.get("email") as string | null ?? "");
+  const password = String(formData.get("password") as string | null ?? "");
 
   try {
     await signIn("credentials", {
