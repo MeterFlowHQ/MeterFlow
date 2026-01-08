@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from "date-fns";
 import { auth } from "@/auth";
 import { Prisma } from "@prisma/client";
+import { ROLES } from "@/lib/constants";
 
 export type DateRange = "today" | "week" | "month" | "custom";
 
@@ -185,12 +186,12 @@ export async function getMeterAnalytics(meterId: string): Promise<MeterAnalytics
   if (!meter) return null;
 
   // If user is not admin and meter is not enabled, deny access
-  if (session?.user?.role !== "ADMIN" && meter.status !== "ENABLED") {
+  if (session?.user?.role !== ROLES.ADMIN && meter.status !== "ENABLED") {
     return null;
   }
 
   // If user is a reader, they can only access their assigned meters
-  if (session?.user?.role === "READER" && meter.assignedUserId !== session.user.id) {
+  if (session?.user?.role === ROLES.READER && meter.assignedUserId !== session.user.id) {
     return null;
   }
 

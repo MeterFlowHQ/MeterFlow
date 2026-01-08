@@ -2,6 +2,7 @@ import ExcelJS from "exceljs";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { Prisma } from "@prisma/client";
+import { ROLES } from "@/lib/constants";
 
 interface ExportFilters {
   startDate?: Date;
@@ -110,12 +111,12 @@ export async function generateMeterExport(meterId: string): Promise<Buffer> {
   if (!meter) throw new Error("Meter not found");
 
   // If user is not admin and meter is not enabled, deny access
-  if (session?.user?.role !== "ADMIN" && meter.status !== "ENABLED") {
+  if (session?.user?.role !== ROLES.ADMIN && meter.status !== "ENABLED") {
     throw new Error("Access denied");
   }
 
   // If user is a reader, they can only export their assigned meters
-  if (session?.user?.role === "READER" && meter.assignedUserId !== session.user.id) {
+  if (session?.user?.role === ROLES.READER && meter.assignedUserId !== session.user.id) {
     throw new Error("Access denied");
   }
 

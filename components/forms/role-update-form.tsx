@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { updateUserRole } from "@/app/dashboard/admin/users/actions";
 import { Toast } from "@/components/ui/toast";
+import { ROLES } from "@/lib/constants";
 
 interface RoleUpdateFormProps {
   userId: string;
@@ -27,8 +28,8 @@ export function RoleUpdateForm({ userId, currentRole }: RoleUpdateFormProps) {
           defaultValue={currentRole}
           className="rounded border border-gray-200 px-2 py-1 text-xs focus:border-emerald-600 focus:outline-none"
         >
-          <option value="READER">Reader</option>
-          <option value="ADMIN">Admin</option>
+          <option value={ROLES.READER}>Reader</option>
+          <option value={ROLES.ADMIN}>Admin</option>
         </select>
         <button
           type="submit"

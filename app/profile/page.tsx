@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { PasswordForm } from "./password-form";
 import { ContactForm } from "./contact-form";
+import { ROLES } from "@/lib/constants";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -21,7 +22,7 @@ export default async function ProfilePage() {
 
   if (!user) return null;
 
-  const dashboardUrl = session.user.role === "ADMIN" ? "/dashboard/admin" : "/dashboard/reader";
+  const dashboardUrl = session.user.role === ROLES.ADMIN ? "/dashboard/admin" : "/dashboard/reader";
 
   return (
     <section className="space-y-4 sm:space-y-6">
@@ -67,7 +68,7 @@ export default async function ProfilePage() {
               )}
               <div className="mt-3">
                 <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700">
-                  {user.role === "ADMIN" ? "Administrator" : "Reader"}
+                  {user.role === ROLES.ADMIN ? "Administrator" : "Reader"}
                 </span>
               </div>
             </div>

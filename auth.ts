@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Role } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
+import { ROLES } from "@/lib/constants";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
@@ -74,7 +75,7 @@ const authOptions: NextAuthConfig = {
     session({ session, token }) {
       if (session.user && token) {
         session.user.id = token.sub ?? "";
-        session.user.role = (token.role as Role) ?? "READER";
+        session.user.role = (token.role as Role) ?? ROLES.READER;
       }
       return session;
     },

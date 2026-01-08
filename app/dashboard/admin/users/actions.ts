@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { ROLES } from "@/lib/constants";
 
 const createUserSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -19,7 +20,7 @@ export async function createUser(
   formData: FormData
 ) {
   const session = await auth();
-  if (!session?.user?.id || session.user.role !== "ADMIN") {
+  if (!session?.user?.id || session.user.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
@@ -73,7 +74,7 @@ export async function updateUserRole(
   formData: FormData
 ) {
   const session = await auth();
-  if (!session?.user?.id || session.user.role !== "ADMIN") {
+  if (!session?.user?.id || session.user.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
@@ -122,7 +123,7 @@ export async function assignMeter(
   formData: FormData
 ) {
   const session = await auth();
-  if (!session?.user?.id || session.user.role !== "ADMIN") {
+  if (!session?.user?.id || session.user.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 
@@ -167,7 +168,7 @@ export async function unassignMeter(
   formData: FormData
 ) {
   const session = await auth();
-  if (!session?.user?.id || session.user.role !== "ADMIN") {
+  if (!session?.user?.id || session.user.role !== ROLES.ADMIN) {
     return { error: "Unauthorized" };
   }
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AssignMeterForm } from "@/components/forms/assign-meter-form";
 import { UnassignMeterButton } from "@/components/buttons/unassign-meter-button";
 import { StatCard } from "@/components/cards/stat-card";
+import { ROLES } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{ userId: string }>;
@@ -66,7 +67,7 @@ export default async function UserManagementPage({ params }: PageProps) {
           value={user.role} 
           badge={{
             text: user.role,
-            color: user.role === "ADMIN" ? "emerald" : "gray"
+            color: user.role === ROLES.ADMIN ? "emerald" : "gray"
           }}
         />
         <StatCard 
@@ -81,7 +82,7 @@ export default async function UserManagementPage({ params }: PageProps) {
       </div>
 
       {/* Assign Meter Form */}
-      {user.role === "READER" && unassignedMeters.length > 0 && (
+      {user.role === ROLES.READER && unassignedMeters.length > 0 && (
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-lg font-semibold text-gray-900">Assign Meter</h2>
           <AssignMeterForm userId={user.id} unassignedMeters={unassignedMeters} />
