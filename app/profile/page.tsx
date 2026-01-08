@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { PasswordForm } from "./password-form";
 import { ContactForm } from "./contact-form";
-import { ImageUploadForm } from "./image-upload-form";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -76,25 +75,13 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Profile Image Upload */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Profile Picture</h2>
-          </div>
-          <div className="p-6">
-            <ImageUploadForm currentImage={user.profileImageUrl} />
-          </div>
+      {/* Contact Number */}
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+        <div className="border-b border-gray-200 px-6 py-4">
+          <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
         </div>
-
-        {/* Contact Number */}
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 px-6 py-4">
-            <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
-          </div>
-          <div className="p-6">
-            <ContactForm currentContact={user.contactNumber || ""} />
-          </div>
+        <div className="p-6">
+          <ContactForm currentContact={user.contactNumber || ""} />
         </div>
       </div>
 
